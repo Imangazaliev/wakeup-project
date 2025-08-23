@@ -96,3 +96,122 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+# Pora Vstavat - Nest.js Application
+
+Проект на Nest.js с Drizzle ORM и PostgreSQL.
+
+## Установка и настройка
+
+### Предварительные требования
+
+- Node.js (версия 20.11+)
+- PostgreSQL
+- npm или yarn
+
+### Установка зависимостей
+
+```bash
+npm install
+```
+
+### Настройка базы данных
+
+1. Создайте базу данных PostgreSQL:
+```sql
+CREATE DATABASE pora_vstavat;
+```
+
+2. Скопируйте файл конфигурации:
+```bash
+cp env.example .env
+```
+
+3. Отредактируйте `.env` файл с вашими настройками базы данных:
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_NAME=pora_vstavat
+```
+
+4. Запустите миграции:
+```bash
+npm run db:migrate
+```
+
+### Запуск приложения
+
+#### Режим разработки
+```bash
+npm run start:dev
+```
+
+#### Продакшн режим
+```bash
+npm run build
+npm run start:prod
+```
+
+## API Endpoints
+
+### Пользователи
+
+- `POST /users` - Создать пользователя
+
+### Коды верификации
+
+- `POST /users/send-verification-code` - Отправить код верификации (генерирует и возвращает 6-значный код)
+- `POST /users/check-code` - Проверить код верификации (возвращает true/false)
+
+## Структура базы данных
+
+### Таблица users
+- `id` - Уникальный идентификатор (serial)
+- `name` - Имя пользователя (varchar(255))
+- `phone_number` - Номер телефона (varchar(20), уникальный)
+- `type` - Тип пользователя: curator, ward, volunteer (text)
+- `created_at` - Дата создания (timestamp)
+
+### Таблица verification_codes
+- `id` - Уникальный идентификатор (serial)
+- `phone_number` - Номер телефона (varchar(20))
+- `code` - Код верификации (varchar(6))
+- `sent_at` - Дата отправки (timestamp)
+
+## Команды для работы с базой данных
+
+```bash
+# Генерация миграций
+npm run db:generate
+
+# Применение миграций
+npm run db:migrate
+
+# Запуск Drizzle Studio (веб-интерфейс для БД)
+npm run db:studio
+```
+
+## Тестирование
+
+```bash
+# Запуск тестов
+npm run test
+
+# Запуск тестов в режиме watch
+npm run test:watch
+
+# Запуск e2e тестов
+npm run test:e2e
+```
+
+## Линтинг и форматирование
+
+```bash
+# Проверка кода
+npm run lint
+
+# Форматирование кода
+npm run format
+```
