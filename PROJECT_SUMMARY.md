@@ -13,6 +13,7 @@
 - **Таблица users**: id, name, phone_number, type, created_at
 - **Таблица verification_codes**: id, phone_number, code, sent_at
 - **Таблица jwt_tokens**: id, user_id, token, is_valid, created_at, expires_at
+- **Таблица volunteer_requests**: id, name, phone_number, status, about_self, about_traineeship, processed_by, created_at
 - **Миграции** с помощью Drizzle Kit
 
 ### ✅ API Endpoints
@@ -28,6 +29,15 @@
 #### Тестирование
 - `GET /` - Проверка работоспособности
 - `POST /test` - Тестовый endpoint
+
+#### Волонтеры
+- `POST /volunteers/create-request` - Создание запроса волонтера
+- `GET /volunteers/request-status/:id` - Получение статуса заявки по ID
+
+#### Кураторы
+- `GET /curator/volunteer-requests` - Получение списка заявок волонтеров
+- `GET /curator/volunteer-requests/:id` - Получение детальной информации о заявке
+- `PUT /curator/volunteer-requests/:id/status` - Изменение статуса заявки
 
 ### ✅ Безопасность
 - **JWT токены** с хранением в базе данных
@@ -87,6 +97,21 @@ src/
 │       ├── create-user.dto.ts
 │       ├── verification.dto.ts
 │       └── response.dto.ts
+├── volunteers/         # Модуль волонтеров
+│   ├── volunteers.module.ts
+│   ├── volunteers.service.ts
+│   ├── volunteers.controller.ts
+│   └── dto/           # Data Transfer Objects
+│       ├── index.ts
+│       ├── create-request.dto.ts
+│       └── response.dto.ts
+├── curator/           # Модуль кураторов
+│   ├── curator.module.ts
+│   ├── curator.service.ts
+│   ├── curator.controller.ts
+│   ├── curator.guard.ts
+│   └── dto/          # Data Transfer Objects
+│       └── volunteer-requests.dto.ts
 ├── app.controller.ts
 ├── app.service.ts
 ├── app.module.ts
@@ -155,10 +180,10 @@ JWT_EXPIRES_IN=7d
 ## 📊 Статистика проекта
 
 - **Файлов**: ~20
-- **Endpoints**: 6
-- **Таблиц БД**: 3
-- **DTO классов**: 5
-- **Декораторов Swagger**: 15+
+- **Endpoints**: 11
+- **Таблиц БД**: 4
+- **DTO классов**: 11
+- **Декораторов Swagger**: 35+
 
 ## 🎯 Готово к использованию!
 

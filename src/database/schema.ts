@@ -3,6 +3,9 @@ import { pgTable, serial, varchar, timestamp, text, integer, boolean } from 'dri
 // Enum для типов пользователей
 export const userTypeEnum = ['curator', 'ward', 'volunteer'] as const;
 
+// Enum для статусов заявок волонтеров
+export const volunteerRequestStatusEnum = ['pending', 'approved', 'rejected'] as const;
+
 // Таблица пользователей
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
@@ -30,10 +33,24 @@ export const jwtTokens = pgTable('jwt_tokens', {
   expiresAt: timestamp('expires_at').notNull(),
 });
 
+// Таблица запросов волонтеров
+export const volunteerRequests = pgTable('volunteer_requests', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 255 }).notNull(),
+  phoneNumber: varchar('phone_number', { length: 20 }).notNull(),
+  status: text('status').notNull().default('pending').$type<typeof volunteerRequestStatusEnum[number]>(),
+  aboutSelf: text('about_self').notNull(),
+  aboutTraineeship: text('about_traineeship').notNull(),
+  processedBy: integer('processed_by').references(() => users.id),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
 // Типы для TypeScript
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type VerificationCode = typeof verificationCodes.$inferSelect;
 export type NewVerificationCode = typeof verificationCodes.$inferInsert;
 export type JwtToken = typeof jwtTokens.$inferSelect;
-export type NewJwtToken = typeof jwtTokens.$inferInsert; 
+export type NewJwtToken = typeof jwtTokens.$inferInsert;
+export type VolunteerRequest = typeof volunteerRequests.$inferSelect;
+export type NewVolunteerRequest = typeof volunteerRequests.$inferInsert; 

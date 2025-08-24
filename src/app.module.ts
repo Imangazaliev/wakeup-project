@@ -4,6 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
+import { VolunteersModule } from './volunteers/volunteers.module';
+import { CuratorModule } from './curator/curator.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -14,6 +16,8 @@ import { AuthModule } from './auth/auth.module';
     DatabaseModule,
     AuthModule,
     UsersModule,
+    VolunteersModule,
+    CuratorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
