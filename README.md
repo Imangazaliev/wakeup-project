@@ -134,6 +134,7 @@ DB_PORT=5432
 DB_USER=postgres
 DB_PASSWORD=your_password
 DB_NAME=pora_vstavat
+DB_SSL=false  # Установите true для включения SSL
 ```
 
 4. Запустите миграции:
