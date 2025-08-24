@@ -146,6 +146,13 @@ npm run test:e2e       # E2E тесты
 npm run create-curator    # Создание аккаунта куратора
 npm run seed-families     # Заполнение тестовыми данными
 
+# Управление PM2
+npm run pm2:start         # Запуск через PM2
+npm run pm2:stop          # Остановка
+npm run pm2:restart       # Перезапуск
+npm run pm2:logs          # Логи
+npm run pm2:monit         # Мониторинг
+
 # Код
 npm run lint           # Проверка кода
 npm run format         # Форматирование

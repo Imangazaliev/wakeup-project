@@ -86,7 +86,7 @@ tmp/
 temp/
 
 # Logs
-logs
+logs/
 *.log
 
 # Drizzle
