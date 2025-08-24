@@ -89,9 +89,6 @@ temp/
 logs/
 *.log
 
-# Drizzle
-drizzle/
-
 # IDE
 .vscode/
 .idea/
