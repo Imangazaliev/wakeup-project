@@ -1,4 +1,5 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Request } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UsersService } from './users.service';
 import { User, NewUser } from '../database/schema';
 
@@ -22,7 +23,13 @@ export class UsersController {
 
   @Post('check-code')
   async checkCode(@Body() data: { phoneNumber: string; code: string }) {
-    const isValid = await this.usersService.checkVerificationCode(data.phoneNumber, data.code);
-    return { isValid };
+    const result = await this.usersService.checkVerificationCode(data.phoneNumber, data.code);
+    return result;
+  }
+
+  @Get('me')
+  @UseGuards(JwtAuthGuard)
+  async getCurrentUser(@Request() req) {
+    return req.user;
   }
 } 

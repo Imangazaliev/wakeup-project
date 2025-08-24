@@ -3,11 +3,13 @@ import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { eq, and } from 'drizzle-orm';
 import * as schema from '../database/schema';
 import { users, verificationCodes, type User, type NewUser, type NewVerificationCode } from '../database/schema';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject('DATABASE') private readonly db: NodePgDatabase<typeof schema>
+    @Inject('DATABASE') private readonly db: NodePgDatabase<typeof schema>,
+    private readonly authService: AuthService
   ) {}
 
   async createUser(userData: Omit<NewUser, 'id' | 'createdAt'>): Promise<User> {
@@ -31,7 +33,7 @@ export class UsersService {
     return code;
   }
 
-  async checkVerificationCode(phoneNumber: string, code: string): Promise<boolean> {
+  async checkVerificationCode(phoneNumber: string, code: string): Promise<{ success: boolean; token?: string }> {
     const [verificationCode] = await this.db
       .select()
       .from(verificationCodes)
@@ -40,9 +42,25 @@ export class UsersService {
     if (verificationCode && verificationCode.id) {
       // Удаляем использованный код
       await this.db.delete(verificationCodes).where(eq(verificationCodes.id, verificationCode.id));
-      return true;
+      
+      // Находим или создаем пользователя
+      let [user] = await this.db.select().from(users).where(eq(users.phoneNumber, phoneNumber));
+      
+      if (!user) {
+        // Создаем нового пользователя
+        [user] = await this.db.insert(users).values({
+          name: `User ${phoneNumber}`,
+          phoneNumber,
+          type: 'ward', // По умолчанию
+        }).returning();
+      }
+      
+      // Генерируем JWT токен
+      const token = await this.authService.generateToken(user.id);
+      
+      return { success: true, token };
     }
     
-    return false;
+    return { success: false };
   }
 } 

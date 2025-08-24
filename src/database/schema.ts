@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, timestamp, text } from 'drizzle-orm/pg-core';
+import { pgTable, serial, varchar, timestamp, text, integer, boolean } from 'drizzle-orm/pg-core';
 
 // Enum для типов пользователей
 export const userTypeEnum = ['curator', 'ward', 'volunteer'] as const;
@@ -20,8 +20,20 @@ export const verificationCodes = pgTable('verification_codes', {
   sentAt: timestamp('sent_at').defaultNow().notNull(),
 });
 
+// Таблица JWT токенов
+export const jwtTokens = pgTable('jwt_tokens', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').notNull().references(() => users.id),
+  token: text('token').notNull(),
+  isValid: boolean('is_valid').default(true).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  expiresAt: timestamp('expires_at').notNull(),
+});
+
 // Типы для TypeScript
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type VerificationCode = typeof verificationCodes.$inferSelect;
-export type NewVerificationCode = typeof verificationCodes.$inferInsert; 
+export type NewVerificationCode = typeof verificationCodes.$inferInsert;
+export type JwtToken = typeof jwtTokens.$inferSelect;
+export type NewJwtToken = typeof jwtTokens.$inferInsert; 

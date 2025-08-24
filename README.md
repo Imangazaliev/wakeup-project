@@ -163,7 +163,11 @@ npm run start:prod
 ### Коды верификации
 
 - `POST /users/send-verification-code` - Отправить код верификации (генерирует и возвращает 6-значный код)
-- `POST /users/check-code` - Проверить код верификации (возвращает true/false)
+- `POST /users/check-code` - Проверить код верификации (возвращает success и JWT токен при успешной проверке)
+
+### Аутентификация
+
+- `GET /users/me` - Получить информацию о текущем пользователе (требует Bearer токен в заголовке Authorization)
 
 ## Структура базы данных
 
@@ -179,6 +183,14 @@ npm run start:prod
 - `phone_number` - Номер телефона (varchar(20))
 - `code` - Код верификации (varchar(6))
 - `sent_at` - Дата отправки (timestamp)
+
+### Таблица jwt_tokens
+- `id` - Уникальный идентификатор (serial)
+- `user_id` - ID пользователя (integer, foreign key)
+- `token` - JWT токен (text)
+- `is_valid` - Валидность токена (boolean)
+- `created_at` - Дата создания (timestamp)
+- `expires_at` - Дата истечения (timestamp)
 
 ## Команды для работы с базой данных
 
