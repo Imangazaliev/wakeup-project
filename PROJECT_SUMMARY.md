@@ -135,6 +135,7 @@ npm run db:studio      # Drizzle Studio
 npm run test           # Unit тесты
 npm run test:e2e       # E2E тесты
 ./test-api.sh          # Быстрое тестирование API
+npm run create-curator    # Создание аккаунта куратора
 
 # Код
 npm run lint           # Проверка кода
