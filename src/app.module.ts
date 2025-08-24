@@ -6,6 +6,7 @@ import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { VolunteersModule } from './volunteers/volunteers.module';
 import { CuratorModule } from './curator/curator.module';
+import { FamiliesModule } from './families/families.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -18,6 +19,7 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
     VolunteersModule,
     CuratorModule,
+    FamiliesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

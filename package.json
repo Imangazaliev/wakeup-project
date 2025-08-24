@@ -21,7 +21,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "create-curator": "node scripts/create-curator.js"
+    "create-curator": "node scripts/create-curator.js",
+    "seed-families": "tsx drizzle/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -36,6 +37,7 @@
     "class-validator": "^0.14.2",
     "drizzle-kit": "^0.31.4",
     "drizzle-orm": "^0.44.4",
+    "drizzle-seed": "^0.3.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "pg": "^8.16.3",
@@ -68,6 +70,7 @@
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.20.5",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
   },

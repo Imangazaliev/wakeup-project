@@ -43,4 +43,18 @@ VOLUNTEER_ID=$(echo "$VOLUNTEER_RESPONSE" | jq -r '.id')
 curl -s -X GET "$BASE_URL/volunteers/request-status/$VOLUNTEER_ID" | jq '.'
 
 echo ""
+echo "7. Проверка новых таблиц БД:"
+curl -s -X POST "$BASE_URL/test" \
+  -H "Content-Type: application/json" \
+  -d '{"test": "new tables", "tables": ["persons", "families"]}' | jq '.'
+
+echo ""
+echo "8. Тестирование получения подробной информации о семье:"
+curl -s -X GET "$BASE_URL/families/1" | jq '.'
+
+echo ""
+echo "9. Тестирование получения несуществующей семьи (ожидается 404):"
+curl -s -X GET "$BASE_URL/families/999" | jq '.'
+
+echo ""
 echo "✅ Тестирование завершено!" 
