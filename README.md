@@ -154,18 +154,26 @@ npm run build
 npm run start:prod
 ```
 
-## API Endpoints
+## API Documentation
 
-### Пользователи
+### Swagger UI
+
+Документация API доступна по адресу: **http://localhost:3000/api**
+
+Swagger UI предоставляет интерактивную документацию для всех endpoints с возможностью тестирования API прямо из браузера.
+
+### API Endpoints
+
+#### Пользователи
 
 - `POST /users` - Создать пользователя
 
-### Коды верификации
+#### Коды верификации
 
 - `POST /users/send-verification-code` - Отправить код верификации (генерирует и возвращает 6-значный код)
 - `POST /users/check-code` - Проверить код верификации (возвращает success и JWT токен при успешной проверке)
 
-### Аутентификация
+#### Аутентификация
 
 - `GET /users/me` - Получить информацию о текущем пользователе (требует Bearer токен в заголовке Authorization)
 
@@ -217,6 +225,46 @@ npm run test:watch
 # Запуск e2e тестов
 npm run test:e2e
 ```
+
+## Валидация данных
+
+Проект использует `class-validator` для валидации входящих данных. Все DTO (Data Transfer Objects) содержат декораторы валидации:
+
+- `@IsString()` - проверка на строку
+- `@IsNotEmpty()` - проверка на непустое значение
+- `@IsEnum()` - проверка на перечисление
+- `@ApiProperty()` - Swagger документация
+
+## Тестирование API
+
+### Автоматическое тестирование
+
+Запустите скрипт для быстрого тестирования API:
+
+```bash
+./test-api.sh
+```
+
+### Ручное тестирование
+
+1. **Проверка работоспособности:**
+   ```bash
+   curl http://localhost:3000/
+   ```
+
+2. **Тестовый endpoint:**
+   ```bash
+   curl -X POST http://localhost:3000/test \
+     -H "Content-Type: application/json" \
+     -d '{"test": "data"}'
+   ```
+
+3. **Проверка валидации:**
+   ```bash
+   curl -X POST http://localhost:3000/users/send-verification-code \
+     -H "Content-Type: application/json" \
+     -d '{}'
+   ```
 
 ## Линтинг и форматирование
 
