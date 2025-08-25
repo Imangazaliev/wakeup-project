@@ -25,7 +25,7 @@ export class AuthService {
     
     await this.db.insert(schema.jwtTokens).values({
       userId,
-      token,
+      token: payload.token,
       expiresAt,
     });
     
