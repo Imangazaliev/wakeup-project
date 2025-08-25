@@ -43,6 +43,13 @@
       "when": 1756089971380,
       "tag": "0005_strong_dark_beast",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1756107619806,
+      "tag": "0006_rich_smiling_tiger",
+      "breakpoints": true
     }
   ]
 }

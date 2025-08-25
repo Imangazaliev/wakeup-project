@@ -60,7 +60,7 @@ export const persons = pgTable('persons', {
 // Таблица семей
 export const families = pgTable('families', {
   id: serial('id').primaryKey(),
-  city: text('city').notNull(),
+  location: text('location').notNull(),
   address: text('address').notNull(),
   contactPersonId: integer('contact_person_id').notNull().references(() => persons.id),
   createdAt: timestamp('created_at').defaultNow().notNull(),

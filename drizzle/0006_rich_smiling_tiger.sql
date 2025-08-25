@@ -1,0 +1,1 @@
+ALTER TABLE "families" RENAME COLUMN "city" TO "location";

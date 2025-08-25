@@ -74,22 +74,22 @@ const testPersons = [
 // Тестовые данные для семей (ID будут установлены динамически)
 const testFamilies = [
   {
-    city: 'Москва',
+    location: 'Москва',
     address: 'ул. Тверская, д. 1, кв. 5',
     contactPersonIndex: 0 // Иван Петров (первый в списке)
   },
   {
-    city: 'Санкт-Петербург',
+    location: 'Санкт-Петербург',
     address: 'Невский пр., д. 10, кв. 15',
     contactPersonIndex: 3 // Анна Сидорова (четвертый в списке)
   },
   {
-    city: 'Екатеринбург',
+    location: 'Екатеринбург',
     address: 'ул. Ленина, д. 25, кв. 8',
     contactPersonIndex: 6 // Сергей Иванов (седьмой в списке)
   },
   {
-    city: 'Новосибирск',
+    location: 'Новосибирск',
     address: 'ул. Красная, д. 15, кв. 12',
     contactPersonIndex: 9 // Татьяна Козлова (десятый в списке)
   }
@@ -156,7 +156,7 @@ async function seed() {
     
     // Создаем семьи с правильными ID контактных лиц
     const familiesToInsert = testFamilies.map(family => ({
-      city: family.city,
+      location: family.location,
       address: family.address,
       contactPersonId: createdPersons[family.contactPersonIndex].id
     }));
@@ -165,7 +165,7 @@ async function seed() {
     
     for (const family of createdFamilies) {
       const contactPerson = createdPersons.find(p => p.id === family.contactPersonId);
-      console.log(`   ✅ Создана семья: ${family.city} (ID: ${family.id}, контакт: ${contactPerson?.name})`);
+      console.log(`   ✅ Создана семья: ${family.location} (ID: ${family.id}, контакт: ${contactPerson?.name})`);
     }
     console.log(`✅ Создано ${createdFamilies.length} семей\n`);
 
