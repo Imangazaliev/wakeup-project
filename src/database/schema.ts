@@ -66,6 +66,15 @@ export const families = pgTable('families', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
+// Таблица волонтеров
+export const volunteers = pgTable('volunteers', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').notNull().references(() => users.id),
+  about: text('about').notNull(),
+  createdBy: integer('created_by').notNull().references(() => users.id),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
 // Типы для TypeScript
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
@@ -78,4 +87,6 @@ export type NewVolunteerRequest = typeof volunteerRequests.$inferInsert;
 export type Person = typeof persons.$inferSelect;
 export type NewPerson = typeof persons.$inferInsert;
 export type Family = typeof families.$inferSelect;
-export type NewFamily = typeof families.$inferInsert; 
+export type NewFamily = typeof families.$inferInsert;
+export type Volunteer = typeof volunteers.$inferSelect;
+export type NewVolunteer = typeof volunteers.$inferInsert; 
