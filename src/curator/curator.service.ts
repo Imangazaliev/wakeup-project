@@ -53,7 +53,7 @@ export class CuratorService {
     return request;
   }
 
-  async createVolunteer(userId: number, about: string, curatorId: number): Promise<Volunteer> {
+  async createVolunteer(userId: number, about: string, location: string, curatorId: number): Promise<Volunteer> {
     // Проверяем, что пользователь существует
     const [user] = await this.db
       .select()
@@ -80,6 +80,7 @@ export class CuratorService {
       .values({
         userId,
         about,
+        location,
         createdBy: curatorId,
       })
       .returning();
@@ -90,11 +91,13 @@ export class CuratorService {
   async getAllVolunteers(): Promise<Array<{
     id: number;
     name: string;
+    location: string;
   }>> {
     return await this.db
       .select({
         id: users.id,
         name: users.name,
+        location: volunteers.location,
       })
       .from(volunteers)
       .innerJoin(users, eq(volunteers.userId, users.id))
@@ -106,6 +109,7 @@ export class CuratorService {
     name: string;
     phoneNumber: string;
     about: string;
+    location: string;
     createdAt: Date;
   } | null> {
     const [volunteer] = await this.db
@@ -114,6 +118,7 @@ export class CuratorService {
         name: users.name,
         phoneNumber: users.phoneNumber,
         about: volunteers.about,
+        location: volunteers.location,
         createdAt: volunteers.createdAt,
       })
       .from(volunteers)

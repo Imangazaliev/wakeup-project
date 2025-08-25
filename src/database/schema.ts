@@ -71,6 +71,7 @@ export const volunteers = pgTable('volunteers', {
   id: serial('id').primaryKey(),
   userId: integer('user_id').notNull().references(() => users.id),
   about: text('about').notNull(),
+  location: text('location').notNull(),
   createdBy: integer('created_by').notNull().references(() => users.id),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });

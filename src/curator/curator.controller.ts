@@ -108,7 +108,7 @@ export class CuratorController {
     @Body() data: CreateVolunteerDto,
     @Request() req: any
   ) {
-    return await this.curatorService.createVolunteer(data.userId, data.about, req.user.userId);
+    return await this.curatorService.createVolunteer(data.userId, data.about, data.location, req.user.userId);
   }
 
   @Get('volunteers')

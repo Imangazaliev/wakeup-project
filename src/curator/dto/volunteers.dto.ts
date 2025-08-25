@@ -16,6 +16,14 @@ export class CreateVolunteerDto {
   @IsString()
   @IsNotEmpty()
   about: string;
+
+  @ApiProperty({
+    description: 'Местоположение волонтера',
+    example: 'Москва',
+  })
+  @IsString()
+  @IsNotEmpty()
+  location: string;
 }
 
 export class VolunteerListItemDto {
@@ -30,6 +38,12 @@ export class VolunteerListItemDto {
     example: 'Иван Петров',
   })
   name: string;
+
+  @ApiProperty({
+    description: 'Местоположение волонтера',
+    example: 'Москва',
+  })
+  location: string;
 }
 
 export class VolunteerDetailDto {
@@ -56,6 +70,12 @@ export class VolunteerDetailDto {
     example: 'Опыт работы с детьми, образование психолога...',
   })
   about: string;
+
+  @ApiProperty({
+    description: 'Местоположение волонтера',
+    example: 'Москва',
+  })
+  location: string;
 
   @ApiProperty({
     description: 'Дата создания записи волонтера',
